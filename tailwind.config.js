@@ -18,11 +18,16 @@ module.exports = {
       padding: "1.5rem",
     },
     extend: {
+      height: {
+        93: "23.25rem",
+        53: "13.25rem",
+      },
       objectPosition: {
         "center-top": "-28px -5px",
       },
       borderRadius: {
         btn: "3.125rem",
+        card: "1.25rem",
       },
     },
   },
