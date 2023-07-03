@@ -13,6 +13,7 @@ module.exports = {
       accent: "#8B3DFF",
       contrast: "#0E0E0E",
       stroke: "#1C1C1C",
+      card: "#0F0F0F",
     },
     container: {
       padding: "1.5rem",
@@ -27,6 +28,7 @@ module.exports = {
       },
       borderRadius: {
         btn: "3.125rem",
+        input: "2.062rem",
         card: "1.25rem",
       },
     },
