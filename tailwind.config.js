@@ -14,17 +14,29 @@ module.exports = {
       contrast: "#0E0E0E",
       stroke: "#1C1C1C",
       card: "#0F0F0F",
+      nav: "rgba(26, 26, 26, 0.60)",
+      navStroke: "#2D2D2D",
     },
     container: {
       padding: "1.5rem",
     },
     extend: {
+      screens: {
+        sm: "500px",
+      },
       height: {
         93: "23.25rem",
         53: "13.25rem",
       },
+      width: {
+        102: "25.5rem",
+      },
       objectPosition: {
         "center-top": "-28px -5px",
+      },
+      backgroundImage: {
+        pattern:
+          "linear-gradient(222.95deg, #8B3DFF -4.55%, rgba(139, 61, 255, 0) 82.35%);",
       },
       borderRadius: {
         btn: "3.125rem",

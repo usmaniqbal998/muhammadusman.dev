@@ -1,0 +1,182 @@
+---
+title: Generics in Typescript with examples
+date: 12-12-2020
+description: How Generics work with Typescript with examples
+featured: true
+coverImage: /images/typescript-generics.jpeg
+thumbnail: /images/love-hate-relationship-typescript-thumbnail.png
+---
+
+# My Love-Hate Relationship with Typescript
+
+Many developers can relate to the initial confusion and challenges faced when working with TypeScript. However, over time, I have come to appreciate TypeScript and its benefits. In this blog post, I will discuss my journey of grappling with TypeScript and eventually falling in love with it, as I gained a better understanding of the relationship between JavaScript and TypeScript.
+
+### Typescript a Superset
+
+> TypeScript is a superset of JavaScript
+
+Yes, we have been listening to these statements from all javascript pandits around the globe but it never helped anyone learn typescript. If you look at typescript in terms of syntax then yes this statement looks fine but typescript is a lot more than the syntactic sugar over javascript. all your valid javascript code is still a valid typescript code although the typescript type checker will flag some type errors but typescript will still parse your code and emit JavaScript.
+
+```tsx
+let a = "123";
+a = 123;
+console.log(a);
+
+// index.ts:2:1 - error TS2322: Type 'number' is not assignable to type 'string'.
+// 2 a = 123;
+// Found 1 error in index.ts:2
+```
+
+Running `tsc index.ts` on this file will flag some `ts` errors but it will still generate an `index.js` file which shows that typescript code generation is independent of typescript type check which actually feels very weird because what is the point of type checking if typescript is still emitting the same javascript code 🤮.
+
+After ranting a few months about this I understood that typescript merely does this due to the fact that largely old javascript projects when migrated to typescript require both js and ts files to run so therefore typescript decided to keep transpiler and type check abilities independent and in fact, the production code does not have any types and interfaces, every type that typescript added to javascript is removed so even if things are type checked during development, in production, you won't need them so keeping code generation dependent on type checks does not make sense
+
+## Structural Typing
+
+> If it swims like a _duck_, quacks like a _duck_ …
+
+Well, F\*\*k duck let's understand what structural typing is.
+
+Types in typescript are not “Sealed”. Typescript type systems have an open end on types. This means that if the required structure is present in your objects then Type-Check will pass. Type-checker only looks for required structure and residing types inside the structure
+
+Let's consider the following example:
+
+Let's say you are working with some vectors and you have a vector that is defined by the x and y points so you will define our Vector type as
+
+```tsx
+interface Vector {
+    x: number;
+    y: number;
+}
+function calculateLength(v: Vector) {
+    return Math.sqrt(v.x * v.x + v.y * v.y);
+}
+const x = {x: 10, y: 20, z: 30};
+calculateLength(x);
+```
+
+```tsx
+interface Vector {
+	x: number;
+	y: number;
+}
+```
+
+to calculate Vector length
+
+```tsx
+function calculateLength(v: Vector) {
+	return Math.sqrt(v.x * v.x + v.y * v.y);
+}
+```
+
+now we will observe that type check will overlook this type error if we add a `z` attribute to the object passed to `calculateLength` function
+
+```tsx
+const x = { x: 10, y: 20, z: 30 };
+calculateLength(x);
+```
+
+although the `z` attribute is a dead property for `calculateLength` but typescript type checker didn't complain because the type-checker only looks at the structure that `v:Vector` required in order to calculate the length of the vector.
+
+The fun fact is type checker will complain if you directly call `calculateLength` like this. 🤦
+
+```tsx
+calculateLength({ x: 10, y: 20, z: 30 });
+```
+
+I have not yet found the reason why the typescript type-checker gives error in this situation, if you know this please add your comment below 👇
+
+### Code Generation
+
+At the start of the article, I explained how type-checking and code generation work independently of each other. Lets look at code generation more in-depth
+
+We can not check types in typescript at runtime, lets's say you have the following piece of code
+
+```tsx
+interface Animal {
+    name: string;
+}
+interface Cat extends Animal {
+    canClimb: boolean;
+}
+
+function getAnimalName(animal: Animal) {
+    if (animal instanceof Cat) {
+        console.log(animal.name);
+    }
+}
+
+//  Error: 'Cat' only refers to a type, but is being used as a value here.ts(2693)
+```
+
+Type-checker will throw an error and your program fails at runtime as the Transpiler will strip all interfaces and types from javascript code. There is no Cat and Animal at runtime.
+
+To overcome this issue we can either use classes or have tagged types on objects
+
+```tsx
+interface Cat {
+    canClimb: boolean;
+    kind: 'cat';
+    name: string;
+}
+interface Lion {
+    canClimb: boolean;
+    kind: 'lion';
+    name: string;
+}
+type Animal = Cat | Lion;
+
+function getAnimalName(animal: Animal) {
+    if (animal.kind === 'cat') {
+        console.log(animal.name);
+    }
+}
+```
+
+I sometimes think why don't we have these types inside javascript where browsers can read them but that would be a breaking change in the javascript world because all plain old javascript projects running would get obsoleted
+
+Because types are striped at runtime therefore we can not have method overloads. Let's consider the following example
+
+```tsx
+function add(a: number, b: number) {
+    return a + b;
+}
+function add(a: string, b: string) {
+    return a + b;
+}
+// Duplicate function implementation.ts(2393)
+```
+
+Because at runtime types are striped, both add functions would be duplicated. Typescript though provides a facility to do this.
+
+```tsx
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a, b) {
+    return a + b;
+}
+const three = add(1, 2); // Type is number
+```
+
+In other cases, we can also use a powerful Typescript feature that is Generics which makes me fall in love with Typescript ❤️
+
+### any type
+
+We have all been there when we are stuck and are tempted to use any type and get away with the type checking but `any` cause more problems than it solves. It breaks Contracts and can cause billion-dollar errors on runtime.
+
+```tsx
+function multiplyBy5(number: any): number {
+    return number * 5;
+}
+const myNumber = '10';
+multiplyBy5(myNumber);
+```
+
+Because `any` hides your type design due to this; there are no language services available on `any`. People love how typescript documents your object types and with a dropdown let the writer know what is available on the object and what is not but with the use of `any` we have no IntelliSense available
+
+### Conclusion
+
+By overcoming the challenges and gaining a deeper understanding of the relationship between TypeScript and JavaScript, I have been able to harness the power of TypeScript and write more effective code in recent months. I hope this article has shed some light on the nuances of TypeScript and how it can be effectively utilized in development.
+
+That's all for this week, see you guys with another typescript article next week 👋

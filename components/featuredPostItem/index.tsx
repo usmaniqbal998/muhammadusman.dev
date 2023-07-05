@@ -1,20 +1,33 @@
+import Image from "next/image";
+
 interface Props {
   imageSrc: string;
   title: string;
   excerpt: string;
+  thumbnail?: string;
 }
 
 const FeaturedPostItem: React.FunctionComponent<Props> = ({
   imageSrc,
   title,
   excerpt,
+  thumbnail,
 }) => {
   return (
     <div className="w-full cursor-pointer rounded-card p-5 ring-2 ring-stroke hover:bg-stroke">
-      <div className="h-53 w-full overflow-hidden rounded-card object-cover">
-        <img className="h-full w-full" alt={title} src={imageSrc} />
+      <div className="h-56 w-full overflow-hidden rounded-card object-cover sm:h-44 ">
+        <Image
+          className="h-full w-full bg-cover object-cover"
+          alt={title}
+          src={imageSrc}
+          width={300}
+          height={300}
+          unoptimized
+          placeholder="blur"
+          blurDataURL={thumbnail}
+        />
       </div>
-      <h4 className="mt-5 text-lg font-bold">{title}</h4>
+      <h4 className="mt-5 text-base font-bold sm:text-lg">{title}</h4>
       <p className="mt-3 text-text">{excerpt}</p>
       <div className=" mt-3 flex gap-2 align-bottom">
         <button className=" text-accent">Read More</button>
