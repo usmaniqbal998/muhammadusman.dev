@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={heebo.className}>
-      <body className="mt-8 max-w-2xl antialiased sm:mx-auto">
+      <body className="mt-8 max-w-3xl antialiased sm:mx-auto">
         <main className="min-w-0 px-6 md:px-0">{children}</main>
       </body>
     </html>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { linkIcon } from "../Icons";
 
 interface Props {
   imageSrc: string;
@@ -15,14 +16,13 @@ const FeaturedPostItem: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <div className="w-full cursor-pointer rounded-card p-5 ring-2 ring-stroke hover:bg-stroke">
-      <div className="h-56 w-full overflow-hidden rounded-card object-cover sm:h-44 ">
+      <div className="w-full overflow-hidden rounded-card object-cover">
         <Image
-          className="h-full w-full bg-cover object-cover"
+          className="h-auto w-full object-cover"
           alt={title}
           src={imageSrc}
-          width={300}
-          height={300}
-          unoptimized
+          width={400}
+          height={400}
           placeholder="blur"
           blurDataURL={thumbnail}
         />
@@ -31,27 +31,7 @@ const FeaturedPostItem: React.FunctionComponent<Props> = ({
       <p className="mt-3 text-text">{excerpt}</p>
       <div className=" mt-3 flex gap-2 align-bottom">
         <button className=" text-accent">Read More</button>
-        <svg
-          width="10"
-          height="10"
-          viewBox="0 0 10 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mt-[4px]"
-        >
-          <path
-            d="M0.5 9.5L9.5 0.5"
-            stroke="#8B3DFF"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M2.1875 0.5H9.5V7.8125"
-            stroke="#8B3DFF"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        {linkIcon}
       </div>
     </div>
   );
