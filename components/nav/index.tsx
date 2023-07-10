@@ -4,7 +4,7 @@ import Link from "next/link";
 import { postsIcon, twitterIcon, youtubeIcon } from "../Icons";
 
 const navItems = [
-  { title: "Posts", icon: postsIcon, url: "#" },
+  { title: "Posts", icon: postsIcon, url: "/posts" },
   {
     title: "Twitter",
     icon: twitterIcon,

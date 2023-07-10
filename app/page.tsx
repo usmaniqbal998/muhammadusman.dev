@@ -61,6 +61,7 @@ function LatestPosts() {
             className="border-b border-stroke pb-3 last:border-0 hover:cursor-pointer hover:bg-contrast sm:pb-4"
           >
             <GeneralPostItem
+              url={item.url}
               title={item.title}
               excerpt={item.description}
               date={item.date}
