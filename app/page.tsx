@@ -1,10 +1,9 @@
-import Avatar from "@/components/avatar";
 import FeaturedPostItem from "@/components/featuredPostItem";
 import GeneralPostItem from "@/components/generalPostItem";
-import Nav from "@/components/nav";
 
 import { allPosts } from "contentlayer/generated";
 import { footerIllustration } from "@/components/Icons";
+import Avatar from "@/components/avatar";
 
 function Greetings() {
   return (
@@ -38,6 +37,7 @@ function FeaturedPosts() {
           .map((item) => (
             <li key={item.title}>
               <FeaturedPostItem
+                url={item.url}
                 imageSrc={item.coverImage || ""}
                 title={item.title}
                 excerpt={item.description}
@@ -119,7 +119,6 @@ export default function Home() {
   return (
     <>
       <Avatar />
-      <Nav />
       <Greetings />
       <FeaturedPosts />
       <LatestPosts />

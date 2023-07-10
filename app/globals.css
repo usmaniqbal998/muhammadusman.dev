@@ -8,3 +8,51 @@
     @apply text-sm text-white;
   }
 }
+
+blockquote p {
+  @apply text-xl font-medium !important;
+}
+
+p code {
+  @apply rounded-md bg-stroke p-2;
+}
+
+.post-content pre {
+  @apply mb-2 rounded-xl p-5 text-lg;
+}
+
+.post-content pre code {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post-content .anchor {
+  @apply cursor-pointer;
+}
+
+.post-content .anchor {
+  @apply invisible absolute no-underline;
+
+  margin-left: -1em;
+  padding-right: 0.5em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.post-content:hover {
+  @apply visible;
+}
+
+.post-content a {
+  @apply underline-offset-2 transition-all;
+}
+
+.post-content .anchor:after {
+  content: "#";
+}
+
+.post-content *:hover > .anchor {
+  @apply visible;
+}

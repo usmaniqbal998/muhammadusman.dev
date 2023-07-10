@@ -7,8 +7,6 @@ coverImage: /images/love-hate-relationship-typescript.png
 thumbnail: /images/love-hate-relationship-typescript-thumbnail.png
 ---
 
-# My Love-Hate Relationship with Typescript
-
 Many developers can relate to the initial confusion and challenges faced when working with TypeScript. However, over time, I have come to appreciate TypeScript and its benefits. In this blog post, I will discuss my journey of grappling with TypeScript and eventually falling in love with it, as I gained a better understanding of the relationship between JavaScript and TypeScript.
 
 ### Typescript a Superset
@@ -27,7 +25,7 @@ console.log(a);
 // Found 1 error in index.ts:2
 ```
 
-Running `tsc index.ts` on this file will flag some `ts` errors but it will still generate an `index.js` file which shows that typescript code generation is independent of typescript type check which actually feels very weird because what is the point of type checking if typescript is still emitting the same javascript code 🤮.
+Running `tsc index.ts` on this file will flag some `ts`errors but it will still generate an`index.js` file which shows that typescript code generation is independent of typescript type check which actually feels very weird because what is the point of type checking if typescript is still emitting the same javascript code 🤮.
 
 After ranting a few months about this I understood that typescript merely does this due to the fact that largely old javascript projects when migrated to typescript require both js and ts files to run so therefore typescript decided to keep transpiler and type check abilities independent and in fact, the production code does not have any types and interfaces, every type that typescript added to javascript is removed so even if things are type checked during development, in production, you won't need them so keeping code generation dependent on type checks does not make sense
 
