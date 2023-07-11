@@ -1,13 +1,10 @@
 import GeneralPostItem from "@/components/generalPostItem";
 
 import { allPosts } from "@/.contentlayer/generated";
-import Avatar from "@/components/avatar";
 
 const AllPosts = () => {
   return (
     <>
-      <Avatar />
-
       <section className="mt-[52px]">
         <ul className="mt-7 flex flex-col gap-5">
           {allPosts.map((item) => (

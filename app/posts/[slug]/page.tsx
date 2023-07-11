@@ -1,12 +1,7 @@
 import { allPosts } from "@/.contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
-import Avatar from "@/components/avatar";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
-
-interface MdxProps {
-  code: string;
-}
 
 const Paragraphs = (
   props: DetailedHTMLProps<
@@ -92,7 +87,6 @@ function Post(props) {
 
   return (
     <>
-      <Avatar />
       <section className="relative mb-28 mt-28">
         <h1 className="text-4xl font-semibold">{post.title}</h1>
         <Mdx code={post.body.code} />

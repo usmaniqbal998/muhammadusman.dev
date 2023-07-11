@@ -24,8 +24,14 @@ export default function RootLayout({
       <body className="mt-8 max-w-3xl antialiased sm:mx-auto">
         <main className="min-w-0 px-6 md:px-0">
           <Nav />
+          <Avatar />
           {children}
         </main>
+        <footer>
+          <div className="mb-10 text-center text-text">
+            <p>Copyright 2023 - Muhammad Usman</p>
+          </div>
+        </footer>
       </body>
     </html>
   );

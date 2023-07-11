@@ -3,7 +3,7 @@ import GeneralPostItem from "@/components/generalPostItem";
 
 import { allPosts } from "contentlayer/generated";
 import { footerIllustration } from "@/components/Icons";
-import Avatar from "@/components/avatar";
+import Link from "next/link";
 
 function Greetings() {
   return (
@@ -17,10 +17,12 @@ function Greetings() {
           Here, I share my knowledge, experiences, and insights as I navigate
           the ever-changing landscape of web development.
         </p>
-
-        <button className="mt-6 cursor-pointer rounded-btn bg-accent px-5 py-3 md:text-lg">
+        <Link
+          href="mailto:usman.iqbal998@gmail.com"
+          className="mt-6 inline-block cursor-pointer rounded-btn bg-accent px-5 py-3 md:text-lg"
+        >
           Say Hello
-        </button>
+        </Link>
         <span className=" absolute -right-28 -top-12 hidden  h-72 w-72 rounded-full bg-pattern blur-2xl	lg:block" />
       </div>
     </section>
@@ -58,7 +60,7 @@ function LatestPosts() {
         {allPosts.slice(0, 5).map((item) => (
           <li
             key={item.title}
-            className="border-b border-stroke pb-3 last:border-0 hover:cursor-pointer hover:bg-contrast sm:pb-4"
+            className="rounded border-b border-stroke py-3 last:border-0 hover:cursor-pointer hover:bg-contrast"
           >
             <GeneralPostItem
               url={item.url}
@@ -95,22 +97,18 @@ function Footer() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="h-5 w-5"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
               />
             </svg>
           </div>
         </div>
-      </div>
-
-      <div className="mb-10 text-center text-text">
-        <p>Copyright 2023 - Muhammad Usman</p>
       </div>
     </section>
   );
@@ -119,7 +117,6 @@ function Footer() {
 export default function Home() {
   return (
     <>
-      <Avatar />
       <Greetings />
       <FeaturedPosts />
       <LatestPosts />
