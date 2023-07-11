@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     siteName: "Muhammad Usman",
     locale: "en-US",
     type: "website",
+    images: [
+      {
+        url: "https://muhammadusman.dev/sticker.png",
+      },
+    ],
   },
   robots: {
     index: true,
