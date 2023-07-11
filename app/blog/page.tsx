@@ -1,6 +1,12 @@
 import GeneralPostItem from "@/components/generalPostItem";
 
 import { allPosts } from "@/.contentlayer/generated";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Read my thoughts on Javascript, React and TypeScript.",
+};
 
 const AllPosts = () => {
   return (

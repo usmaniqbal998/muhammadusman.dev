@@ -1,4 +1,5 @@
 import { allPosts } from "@/.contentlayer/generated";
+import { Metadata } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
@@ -78,15 +79,60 @@ function Mdx({ code }) {
   );
 }
 
+export async function generateMetadata({
+  params,
+}): Promise<Metadata | undefined> {
+  const post = allPosts.find((post) => post.slug === params.slug);
+  if (!post) {
+    return;
+  }
+
+  const {
+    title,
+    publishedAt: publishedTime,
+    description,
+    coverImage,
+    slug,
+  } = post;
+  const mainImage = `https://muhammadusman.dev${coverImage}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime,
+      url: `https://muhammadusman.dev/blog/${slug}`,
+      images: [
+        {
+          url: mainImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [mainImage],
+    },
+  };
+}
+
 function Post(props) {
   const { params } = props;
   const post = allPosts.find((post) => post.slug === params.slug);
+
   if (!post) {
     return <div>Post not found</div>;
   }
 
   return (
     <>
+      <script type="application/ld+json" suppressHydrationWarning>
+        {JSON.stringify(post.structuredData)}
+      </script>
       <section className="relative mb-28 mt-28">
         <h1 className="text-4xl font-semibold">{post.title}</h1>
         <Mdx code={post.body.code} />

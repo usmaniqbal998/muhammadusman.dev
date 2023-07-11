@@ -16,15 +16,36 @@ export const Post = defineDocumentType(() => ({
     featured: { type: "boolean", required: false },
     coverImage: { type: "string", required: false },
     thumbnail: { type: "string", required: false },
+    publishedAt: {
+      type: "string",
+      required: true,
+    },
   },
   computedFields: {
     url: {
       type: "string",
-      resolve: (post) => `/posts/${post._raw.flattenedPath}`,
+      resolve: (post) => `/blog/${post._raw.flattenedPath}`,
     },
     slug: {
       type: "string",
       resolve: (post) => post._raw.flattenedPath,
+    },
+    structuredData: {
+      type: "json",
+      resolve: (doc) => ({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: doc.title,
+        datePublished: doc.publishedAt,
+        dateModified: doc.publishedAt,
+        description: doc.description,
+        image: `https://muhammadusman.dev${doc.coverImage}`,
+        url: `https://muhammadusman.dev/blog/${doc._raw.flattenedPath}`,
+        author: {
+          "@type": "Person",
+          name: "Muhammad Usman",
+        },
+      }),
     },
   },
 }));

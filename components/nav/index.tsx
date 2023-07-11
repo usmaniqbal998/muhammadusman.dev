@@ -4,7 +4,7 @@ import Link from "next/link";
 import { postsIcon, twitterIcon, youtubeIcon } from "../Icons";
 
 const navItems = [
-  { title: "Posts", icon: postsIcon, url: "/posts" },
+  { title: "Posts", icon: postsIcon, url: "/blog" },
   {
     title: "Twitter",
     icon: twitterIcon,
@@ -19,12 +19,15 @@ const Nav: React.FunctionComponent = () => {
       <nav className="fixed bottom-8 z-10 items-center  justify-between gap-6 rounded-full bg-nav px-6 py-3 ring-1 ring-navStroke backdrop-blur sm:bottom-auto sm:top-8 sm:flex  sm:w-102">
         <ul className="flex w-full items-center justify-between gap-4">
           {navItems.map(({ title, icon, url }) => (
-            <Link href={url} key={title}>
-              <li className="flex cursor-pointer items-center gap-1">
+            <li key={title}>
+              <Link
+                href={url}
+                className="flex cursor-pointer items-center gap-1"
+              >
                 {icon}
                 <p className="text-lg">{title}</p>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
       </nav>

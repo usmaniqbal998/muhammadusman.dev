@@ -1,6 +1,7 @@
 import "./globals.css";
 import Avatar from "@/components/avatar";
 import Nav from "@/components/nav";
+import { Metadata } from "next";
 import { Heebo } from "next/font/google";
 
 // If loading a variable font, you don't need to specify the font weight
@@ -9,9 +10,32 @@ const heebo = Heebo({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Muhammad Usman",
-  description: "muhammadusman.dev Blog",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://muhammadusman.dev"),
+  title: {
+    default: "Muhammad Usman",
+    template: "%s | Muhammad Usman",
+  },
+  description: "Frontend enthusiast, writer, and creator.",
+  openGraph: {
+    title: "Muhammad Usman",
+    description: "Frontend enthusiast, writer, and creator.",
+    url: "https://muhammadusman.dev",
+    siteName: "Muhammad Usman",
+    locale: "en-US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
