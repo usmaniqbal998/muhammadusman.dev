@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import profilePic from "../../public/me.png";
+import profilePic from "../../public/muhammadusman.png";
 import Link from "next/link";
 
 const Avatar: React.FunctionComponent = () => {
