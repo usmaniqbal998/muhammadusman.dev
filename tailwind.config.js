@@ -37,6 +37,7 @@ module.exports = {
       backgroundImage: {
         pattern:
           "linear-gradient(222.95deg, #8B3DFF -4.55%, rgba(139, 61, 255, 0) 82.35%);",
+        og: "background: linear-gradient(137deg, #8C1F9D 0%, rgba(59, 56, 234, 0.52) 66.41%, rgba(178, 47, 210, 0.50) 100%)",
       },
       borderRadius: {
         btn: "3.125rem",

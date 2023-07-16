@@ -1,0 +1,172 @@
+---
+title: Interfaces vs Type alias in Typescript
+date: 12-12-2020
+description: How interfaces differ from type alias and when to use them
+featured: true
+coverImage: /images/interface-vs-type-alias.png
+thumbnail: /images/post-thumbnail.png
+publishedAt: "2020-12-12"
+---
+
+If you want to use a named type in Typescript then you can use **type alias** or **interface** but there has been a lot of confusion around whether to use interface or type alias to define your own types and hopefully, after reading this article you will be sure which one to use when. Normally people start by defining similarities between interfaces and types but what I would like to do here is start with the differences between both.
+
+### Union Types with interfaces and type alias
+
+Union types are one of the very powerful features in typescript but unfortunately, you can not define them with interfaces.
+
+normally you define unions as the following which throws an error if you do the same with interfaces.
+
+```tsx
+type EmployeId = string | number;
+
+interface EmployeeId = string | number // Error: 'number' only refers to a type, but is being used as a value here
+```
+
+### Tuples and array types
+
+type aliases can easily express tuples and array types but its rather more difficult with interfaces and also drop some common methods like `concat` etc on these types.
+
+```tsx
+//  with type alias
+type TPairs = [number,number]
+const tpairs: TPairs = [100, 120]; //OK
+
+//  with interfaces
+interface IPairs {
+	0: number;
+	1: number;
+	length: number;
+}
+
+const ipairs: IPairs = [100, 120];
+//OK, but with limitations. Array methods are not available with intelisense
+```
+
+### Declaration merging in Interfaces
+
+one of the most useful and powerful features that typescript offers with interfaces is declaration merging. type alias does not support this.
+
+typescript merge interfaces that have the same names and this is very powerful because it allows you to extend interfaces that are available in global libraries. For Example, let's say you are running typescript in the browser. As the window object is globally available in all browser apps we sometimes want to add our own properties to it.
+
+```tsx
+window.token = "mytokenvalue"
+//  Error: Property 'token' does not exist on type 'Window & typeof globalThis'
+```
+
+if we do this with the declaration merging typescript will allow this.
+
+```tsx
+interface Window{
+	token: string
+}
+
+window.token = "mytokenvalue"
+console.log(window.token) //  Ok
+```
+
+Instead of creating a new `Window` type what typescript did is extended the existing `window` object type and added `token` attribute to it of type `string`. Now you can use all window properties plus the newly attached `token` to it.
+
+This technique is primarily used with declaration files where we can extend types from different libraries and modules. Unfortunately, this is not available with type alias so whenever you want to leverage this technique and you want developers to merge their types with your library type then always use interfaces.
+
+### `extend` and `intersection(&)`
+
+Interfaces can be extended but type aliases can not be extended, we need to use intersection in order to extend type aliases.
+
+```tsx
+interface TwoDVector {
+	x: number;
+	y: number;
+}
+
+interface ThreeDVector extends TwoDVector {
+	z: number;
+}
+
+const vector: ThreeDVector = { x: 10, y: 20, z: 30 };
+```
+
+with type aliases, we have to use ‘&’ intersection to extend types.
+
+```tsx
+type TwoDVector = {
+	x: number;
+	y: number;
+};
+
+type ThreeDVector = TwoDVector & { z: number };
+
+const vector: ThreeDVector = { x: 10, y: 20, z: 30 };
+```
+
+That's all the differences that I know. If you know more add your comments below 👇. Now let's discuss the similarities between interfaces and types 😁
+
+### Index Signature
+
+we can use index signature with both types and interfaces.
+
+```tsx
+type TDictionary = { [key: string]: string };
+
+interface IDictionary {
+  [key: string]: string;
+}
+
+//  Both are Ok
+```
+
+### Function types
+
+we can define function types with bother interfaces and type aliases.
+
+```tsx
+type Tfunc = (x: number) => string;
+interface Ifunc {
+  (x: number): string;
+}
+
+const convertToString: Tfunc = x => '' + x;  // OK
+const convertToString: Ifunc = x => '' + x;  // OK
+```
+
+### Generic types
+
+Both type aliases and interfaces can be used with generics.
+
+```tsx
+type Tgen<T> = {
+  first: T;
+  second: T;
+}
+interface Igen<T> {
+  first: T;
+  second: T;
+}
+```
+
+### Class implementation
+
+classes can implement both type aliases and interfaces.
+
+```tsx
+type Tgen<T> = {
+	first: T;
+	second: T;
+};
+
+interface Igen<T> {
+	first: T;
+	second: T;
+}
+
+class StateT implements Tgen<string> {
+	first: string = '';
+	second: string = '';
+}
+
+class StateI implements Igen<string> {
+	first: string = '';
+	second: string = '';
+}
+```
+
+That's all for now. I hope after reading this you know all the differences and similarities between type aliases and interfaces. See you next week with another Typescript topic. For any questions, you can add your comment or send me a message directly.

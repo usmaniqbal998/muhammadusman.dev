@@ -1,0 +1,165 @@
+---
+title: TypeScript Generics
+date: 12-12-2020
+description: Thoroughly explaining how to use typescript generics
+featured: true
+coverImage: /images/typescript-generics.png
+thumbnail: /images/post-thumbnail.png
+publishedAt: "2020-12-12"
+---
+
+Often in typescript where we want to write some reusable code that can work with different types of data. We assume that this piece of code can accept arguments of different types and return results accordingly.
+
+Let's say we write a function that returns any argument that it has received. ( Very bare example but stay with me. )
+
+```tsx
+function retrieveArgs(arg:any){
+return arg
+}
+
+const numberValue = retrieveArgs(40)
+const stringValue = retrieveArgs("fourty")§
+```
+
+The problem with this code is though it's able to work with different types but the return type is always `any`. Variables `numberValue` and `stringValue` will have type `any` . There is a relationship between the types of arguments you pass and the function's return type.
+
+In order to improve type coverage we can use Generics. Generics allow you to pass “**_types as arguments to the function”_**. Go back and read the phrase again 😀. Yes, that is write . with typescript generics we state that we will dynamically pass type for the argument and we don't have to use **any** as a type
+
+```tsx
+function retrieveArgs<T>(arg:T){
+return arg
+}
+
+const numberValue = retrieveArgs<number>(40)
+const stringValue = retrieveArgs<string>("fourty")
+```
+
+We are passing our types as arguments here and `numberValue` and `stringValue` has type _string_ and _number_ respectively
+
+General Syntax:
+
+```tsx
+function functionName<TypeParams>(FunctionParams){}  //     Declaration
+
+functionName<Types>(arguments)   //     Call
+```
+
+### Multiple Function Type Parameters
+
+We can also pass multiple type parameters to a function as we do with function arguments
+
+```tsx
+function makeTuples<T,K>(name:T,age:K){
+    return [name,age] as const
+}
+
+makeTuples("Usman",27)
+```
+
+In the above example, we have not explicitly defined type params like `makeTuples<string, number>("Usman",27)` because typescript can infer them from function arguments as well.
+
+### Generic Interfaces
+
+Like functions, you can declare generic interfaces as well. They follow same rules as generic functions. You can pass type arguments and use them to assign types to attributes
+
+```tsx
+interface Human<T>{
+    name: string
+    age: T
+}
+
+const Luis: Human<string> = {name: "Luis", age: "23"}
+const Martha: Human<number> = {name: "Luis", age: 23}
+```
+
+you can also implement these generic interfaces on classes as following
+
+```tsx
+interface Humans<T>{
+    name: string
+    age: T
+}
+
+class People implements Humans<number>{
+    name: string
+     age: number
+
+    constructor(name:string, age:number){
+        this.name = name
+        this.age = age
+    }
+
+    get getAge(){
+        return this.age
+    }
+}
+
+const jess = new People("Jess",23)
+
+console.log(jess.getAge)
+```
+
+### Generic Classes
+
+We can have generic parameters on classes as well and these type parameters can then be used on class members type declarations
+
+```tsx
+class Human<T>{
+    name: string
+    private age: T
+
+    constructor(name:string, age:T){
+        this.name = name
+        this.age = age
+    }
+
+    get getAge():T{
+        return this.age
+    }
+}
+
+const jess = new Human("Jess",23)
+
+console.log(jess.getAge)
+```
+
+### Generic Type Literals
+
+We can specify generic type literals as well
+
+```tsx
+type Humans<T> = {name: string, age: T}
+
+const Jess:Humans<string> =  {name:"Jess" , age:"23"}
+```
+
+### Constrained Generic Types
+
+one cool feature of generic types is that you can constrain your generic to specific types this means that if someone is passing type params other than what you specified it will scream. you constraint your generics with ‘**extend**’ keyword .
+
+```tsx
+interface Human<T extends string | number>{
+    name: string
+    age: T
+}
+
+class People implements Human<number>{
+    name: string
+    age: number
+
+    constructor(name:string, age:number){
+        this.name = name
+        this.age = age
+    }
+
+    get getAge(){
+        return this.age
+    }
+}
+
+const jess = new People("Jess",23)
+
+console.log(jess.getAge)
+```
+
+now we can pass only type `string` or `number` to the Human interface . If we tried to send `boolean` it will give type error

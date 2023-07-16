@@ -58,18 +58,18 @@ export const youtubeIcon = (
     <path
       d="M17 20H7C4 20 2 18 2 15V9C2 6 4 4 7 4H17C20 4 22 6 22 9V15C22 18 20 20 17 20Z"
       stroke="white"
-      stroke-width="1.5"
-      stroke-miterlimit="10"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M11.4 9.50006L13.9 11.0001C14.8 11.6001 14.8 12.5001 13.9 13.1001L11.4 14.6001C10.4 15.2001 9.59998 14.7001 9.59998 13.6001V10.6001C9.59998 9.30006 10.4 8.90006 11.4 9.50006Z"
       stroke="white"
-      stroke-width="1.5"
-      stroke-miterlimit="10"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

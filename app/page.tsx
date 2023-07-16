@@ -37,7 +37,7 @@ function FeaturedPosts() {
         {allPosts
           .filter((item) => item.featured)
           .map((item) => (
-            <li key={item.title}>
+            <li key={item.title} className="w-full">
               <FeaturedPostItem
                 url={item.url}
                 imageSrc={item.coverImage || ""}
@@ -120,7 +120,7 @@ export default function Home() {
       <Greetings />
       <FeaturedPosts />
       <LatestPosts />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

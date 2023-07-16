@@ -19,8 +19,8 @@ const FeaturedPostItem: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Link href={url}>
-      <div className="h-full w-full cursor-pointer rounded-card p-5 ring-2 ring-stroke hover:bg-stroke">
-        <div className="w-full overflow-hidden rounded-card object-cover">
+      <div className="h-full w-full max-w-lg cursor-pointer rounded-card p-5 ring-2 ring-stroke hover:bg-stroke">
+        <div className="w-full  overflow-hidden rounded-card object-cover">
           <Image
             className="h-auto w-full object-cover"
             alt={title}

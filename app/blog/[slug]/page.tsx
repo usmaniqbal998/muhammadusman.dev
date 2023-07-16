@@ -12,7 +12,7 @@ const Paragraphs = (
 ) => {
   return (
     <p
-      className="spac mb-5 mt-5 text-lg font-normal leading-8 tracking-wide"
+      className="spac mb-5 mt-5 text-lg font-normal leading-8 tracking-wide md:text-xl md:leading-9"
       {...props}
     >
       {props.children}
@@ -27,7 +27,7 @@ const Headings = (
   >
 ) => {
   return (
-    <h3 className="text-3xl font-medium" {...props}>
+    <h3 className="mt-5 text-3xl font-medium" {...props}>
       {props.children}
     </h3>
   );
@@ -94,7 +94,9 @@ export async function generateMetadata({
     coverImage,
     slug,
   } = post;
-  const mainImage = `https://muhammadusman.dev${coverImage}`;
+  const mainImage = coverImage
+    ? `https://muhammadusman.dev${coverImage}`
+    : `https://muhammadusman.dev/og?title=${title}`;
 
   return {
     title,

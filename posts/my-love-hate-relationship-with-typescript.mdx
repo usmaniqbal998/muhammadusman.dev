@@ -1,11 +1,11 @@
 ---
-title: Generics in Typescript with examples
+title: My Love-Hate Relationship with Typescript
 date: 12-12-2020
-description: How Generics work with Typescript with examples
+description: Initial confusion to eventual love for TypeScript
 featured: true
-coverImage: /images/typescript-generics.jpeg
-thumbnail: /images/love-hate-relationship-typescript-thumbnail.png
-publishedAt: "2023-07-1"
+coverImage: /images/my-love-hate-relationship-typescript.png
+thumbnail: /images/post-thumbnail.png
+publishedAt: "2020-12-12"
 ---
 
 Many developers can relate to the initial confusion and challenges faced when working with TypeScript. However, over time, I have come to appreciate TypeScript and its benefits. In this blog post, I will discuss my journey of grappling with TypeScript and eventually falling in love with it, as I gained a better understanding of the relationship between JavaScript and TypeScript.
@@ -30,7 +30,7 @@ Running `tsc index.ts` on this file will flag some `ts` errors but it will still
 
 After ranting a few months about this I understood that typescript merely does this due to the fact that largely old javascript projects when migrated to typescript require both js and ts files to run so therefore typescript decided to keep transpiler and type check abilities independent and in fact, the production code does not have any types and interfaces, every type that typescript added to javascript is removed so even if things are type checked during development, in production, you won't need them so keeping code generation dependent on type checks does not make sense
 
-## Structural Typing
+### Structural Typing
 
 > If it swims like a _duck_, quacks like a _duck_ …
 
