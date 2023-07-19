@@ -1,5 +1,6 @@
 "use client";
 
+import { getViews, updateViews } from "@/app/api";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
@@ -12,26 +13,10 @@ export const Views = ({ slug, publishDate }: Props) => {
   const [views, setViews] = useState({ count: 0, loading: true });
 
   useEffect(() => {
-    async function updateViews() {
-      if (!window.sessionStorage.getItem(slug)) {
-        window.sessionStorage.setItem(slug, "true");
-
-        await fetch(`/postview/${slug}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ slug }),
-        });
-      }
-    }
-    async function getViews() {
-      let views = await fetch(`/postview/${slug}`);
-      const { data } = await views.json();
-      setViews({ count: data.views, loading: false });
-    }
-    updateViews();
-    getViews();
+    updateViews(slug);
+    getViews(slug).then((views: any) => {
+      setViews({ count: views || 0, loading: false });
+    });
   }, [slug]);
 
   return (

@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import Link from "next/link";
+import PostView from "./views";
 
 interface Props {
   title: string;
@@ -16,9 +17,6 @@ const GeneralPostItem: React.FunctionComponent<Props> = async ({
   url,
   slug,
 }) => {
-  let views = await fetch(`https://muhammadusman.dev/postview/${slug}`);
-  const { data } = await views.json();
-
   return (
     <Link href={url}>
       <div className="flex w-full min-w-0 items-center gap-4">
@@ -28,9 +26,7 @@ const GeneralPostItem: React.FunctionComponent<Props> = async ({
         <div className="flex w-full flex-col gap-2">
           <div className="flex justify-between gap-5">
             <h4 className="text-base font-semibold sm:text-lg">{title}</h4>
-            <p className="flex items-center gap-2 pr-2 text-text">
-              {data?.views ?? 0} views
-            </p>
+            <PostView slug={slug} />
           </div>
           <p className="text-text">{excerpt}</p>
         </div>
