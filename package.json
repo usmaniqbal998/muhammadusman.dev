@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.0.0",
     "@vercel/edge-config": "^0.2.1",
     "contentlayer": "^0.3.4",
     "dayjs": "^1.11.9",
@@ -29,6 +30,7 @@
     "eslint-config-next": "^13.4.7",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
+    "prisma": "^5.0.0",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-pretty-code": "^0.10.0",
     "rehype-slug": "^5.1.0",

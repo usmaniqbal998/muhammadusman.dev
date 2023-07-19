@@ -23,6 +23,7 @@ const AllPosts = () => {
                 title={item.title}
                 excerpt={item.description}
                 date={item.date}
+                slug={item.slug}
               />
             </li>
           ))}

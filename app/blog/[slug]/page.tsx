@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import Views from "../../../components/views";
 
 const Paragraphs = (
   props: DetailedHTMLProps<
@@ -73,7 +74,7 @@ function Mdx({ code }) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="post-content mt-20">
+    <article className="post-content mt-14">
       <Component components={{ ...components }} />
     </article>
   );
@@ -137,6 +138,7 @@ function Post(props) {
       </script>
       <section className="relative mb-28 mt-28">
         <h1 className="text-4xl font-semibold">{post.title}</h1>
+        <Views slug={post.slug} publishDate={post.date} />
         <Mdx code={post.body.code} />
       </section>
     </>
